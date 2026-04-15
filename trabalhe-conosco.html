@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalhe Conosco - Vkron Agência de Marketing Digital</title>
+    <meta name="description" content="Faça parte do time da Vkron. Confira nossas vagas abertas em tráfego pago, atendimento, comercial e mais.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Trabalhe Conosco - Vkron">
+    <meta property="og:description" content="Faça parte do time da Vkron. Mais de 40 especialistas em marketing digital.">
+    <meta property="og:image" content="https://imagedelivery.net/E_BFh2QU2I23Jq68Dk0FXw/ab46fc2b-a630-4b05-3fcf-cfc05c6cdd00/public">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: #064b9c; background: #fff; -webkit-font-smoothing: antialiased; }
+        ::selection { background: #064b9c; color: white; }
+
+        /* Header */
+        header { background: #064b9c; padding: 1rem 2rem; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { text-decoration: none; display: flex; align-items: center; }
+        .logo img { height: 40px; width: auto; }
+        .back-link { color: white; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; font-weight: 500; }
+        .back-link:hover { color: #3aaa34; }
+        .nav-spacer { min-width: 100px; }
+
+        /* Hero */
+        .hero { margin-top: 60px; background: #064b9c; padding: 30px 2rem 25px; text-align: center; color: white; }
+        .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .hero p { font-size: 1rem; opacity: 0.9; }
+        .scroll-line { position: absolute; bottom: 40px; left: 50%; width: 1px; height: 60px; background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent); animation: scrollDown 2s infinite; }
+        @keyframes scrollDown { 0% { opacity: 1; transform: scaleY(1); } 100% { opacity: 0; transform: scaleY(0); transform-origin: top; } }
+
+        /* Texto grande */
+        .statement { padding: 50px 3rem; max-width: 1000px; margin: 0 auto; }
+        .statement h2 { font-size: 3rem; font-weight: 700; line-height: 1.3; letter-spacing: -1px; color: #064b9c; }
+        .statement h2 span { color: #064b9c; }
+
+        /* Números */
+        .numbers { padding: 80px 3rem; background: #fafafa; }
+        .numbers-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+        .number-item { padding: 2rem 0; }
+        .number-value { font-size: 3.5rem; font-weight: 800; color: #064b9c; letter-spacing: -2px; line-height: 1; }
+        .number-label { font-size: 0.85rem; color: #999; margin-top: 0.5rem; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* Benefícios - estilo Apple */
+        .perks { padding: 50px 3rem; max-width: 1100px; margin: 0 auto; }
+        .perks-header { text-align: center; margin-bottom: 2.5rem; }
+        .perks-header h2 { font-size: 3rem; font-weight: 700; letter-spacing: -1px; }
+        .perks-header p { color: #888; font-size: 1.1rem; margin-top: 0.8rem; }
+        .perks-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+        .perk-item { padding: 2.5rem; border-radius: 20px; background: #fafafa; transition: all 0.4s; }
+        .perk-item:hover { background: #f0f4ff; transform: translateY(-4px); }
+        .perk-number { font-size: 0.8rem; font-weight: 700; color: #064b9c; letter-spacing: 2px; margin-bottom: 1rem; }
+        .perk-item h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.6rem; color: #064b9c; }
+        .perk-item p { color: #666; line-height: 1.7; font-size: 0.95rem; }
+
+        /* Vagas */
+        .roles { padding: 60px 3rem; background: #064b9c; color: white; }
+        .roles-inner { max-width: 800px; margin: 0 auto; }
+        .roles h2 { font-size: 3rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 1rem; }
+        .roles > .roles-inner > p { color: rgba(255,255,255,0.85); margin-bottom: 1.5rem; font-size: 1.05rem; }
+        .role { padding: 1.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.3s; }
+        .role:hover { padding-left: 1rem; }
+        .role:first-of-type { border-top: 1px solid rgba(255,255,255,0.08); }
+        .role h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.4rem; }
+        .role-desc { font-size: 0.9rem; color: rgba(255,255,255,0.85); line-height: 1.6; margin-bottom: 0.6rem; }
+        .role-tags { display: flex; gap: 0.5rem; margin-top: 0.4rem; }
+        .role-tag { font-size: 0.75rem; color: rgba(255,255,255,0.9); border: 1px solid rgba(255,255,255,0.3); padding: 3px 12px; border-radius: 50px; }
+        .role-arrow { font-size: 1.5rem; color: rgba(255,255,255,0.8); transition: all 0.3s; }
+        .role:hover .role-arrow { color: #3aaa34; transform: translateX(8px); }
+
+        /* Formulário */
+        .apply { padding: 120px 3rem; }
+        .apply-inner { max-width: 580px; margin: 0 auto; }
+        .apply h2 { font-size: 3rem; font-weight: 700; letter-spacing: -1px; text-align: center; margin-bottom: 0.5rem; }
+        .apply > .apply-inner > p { text-align: center; color: #888; margin-bottom: 3rem; font-size: 1.05rem; }
+        .field { margin-bottom: 1.5rem; }
+        .field label { display: block; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 0.5rem; }
+        .field input, .field select, .field textarea { width: 100%; padding: 16px 0; border: none; border-bottom: 2px solid #e5e5e5; font-size: 1rem; font-family: 'Poppins', sans-serif; color: #064b9c; background: transparent; outline: none; transition: border-color 0.3s; }
+        .field input:focus, .field select:focus, .field textarea:focus { border-color: #064b9c; }
+        .field input::placeholder, .field textarea::placeholder { color: #ccc; }
+        .field select { cursor: pointer; -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0 center; }
+        .field textarea { resize: vertical; min-height: 100px; }
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .submit-btn { width: 100%; padding: 18px; background: #064b9c; color: white; border: none; border-radius: 0; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.4s; font-family: 'Poppins', sans-serif; letter-spacing: 1px; margin-top: 1rem; }
+        .submit-btn:hover { background: #064b9c; }
+        .apply-disclaimer { text-align: center; color: #ccc; font-size: 0.75rem; margin-top: 1.5rem; letter-spacing: 0.5px; }
+
+        /* Footer */
+        .footer { padding: 2rem; text-align: center; background: #064b9c; }
+        .footer p { font-size: 0.85rem; color: white; }
+        .footer a { color: white; text-decoration: none; font-weight: 500; }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            header { padding: 1rem 1.5rem; }
+            .hero h1 { font-size: 2.8rem; letter-spacing: -1px; }
+            .hero p { font-size: 1rem; }
+            .statement { padding: 80px 2rem; }
+            .statement h2 { font-size: 2rem; }
+            .numbers { padding: 60px 2rem; }
+            .numbers-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .number-value { font-size: 2.5rem; }
+            .perks { padding: 80px 2rem; }
+            .perks-header h2 { font-size: 2rem; }
+            .perks-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .roles { padding: 80px 2rem; }
+            .roles h2 { font-size: 2rem; }
+            .apply { padding: 80px 2rem; }
+            .apply h2 { font-size: 2rem; }
+            .field-row { grid-template-columns: 1fr; gap: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="home.html" class="back-link">&#8592; Voltar</a>
+            <a href="home.html" class="logo">
+                <img src="https://imagedelivery.net/E_BFh2QU2I23Jq68Dk0FXw/7b361e0b-e19a-419b-60a5-0dd6f36a7f00/public" alt="VKRON">
+            </a>
+            <span class="nav-spacer"></span>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Trabalhe Conosco</h1>
+        <p>Faça parte do nosso time de especialistas</p>
+    </section>
+
+    <!-- Statement -->
+    <section class="statement">
+        <h2>Não buscamos apenas profissionais. Buscamos pessoas que querem <span>construir algo grande</span> e crescer junto com a gente.</h2>
+    </section>
+
+
+    <!-- Benefícios -->
+    <section class="perks">
+        <div class="perks-header">
+            <h2>O que você encontra aqui</h2>
+            <p>Investimos em quem veste a camisa</p>
+        </div>
+        <div class="perks-grid">
+            <div class="perk-item">
+                <div class="perk-number">01</div>
+                <h3>Plano de carreira</h3>
+                <p>Caminho claro de crescimento. Aqui seu esforço é reconhecido e recompensado com evolução real.</p>
+            </div>
+            <div class="perk-item">
+                <div class="perk-number">02</div>
+                <h3>Ambiente inovador</h3>
+                <p>Um time que se apoia, onde cada ideia é ouvida e todo dia é uma chance de aprender algo novo.</p>
+            </div>
+            <div class="perk-item">
+                <div class="perk-number">03</div>
+                <h3>Treinamentos</h3>
+                <p>Capacitação contínua, acesso a ferramentas de ponta e acompanhamento para você evoluir rápido.</p>
+            </div>
+            <div class="perk-item">
+                <div class="perk-number">04</div>
+                <h3>Bonificações</h3>
+                <p>Quem entrega resultado é valorizado. Sistema de bonificação que reconhece seu desempenho.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vagas -->
+    <section class="roles">
+        <div class="roles-inner">
+            <h2>Áreas abertas</h2>
+            <p>Clique na vaga para se candidatar</p>
+            <div class="role" onclick="selectRole('Gestor de Trafego')">
+                <div>
+                    <h3>Gestor de Tráfego</h3>
+                    <p class="role-desc">Responsável por criar, otimizar e escalar campanhas no Google Ads e Meta Ads, analisando métricas e buscando o melhor retorno para cada cliente.</p>
+                </div>
+            </div>
+            <div class="role" onclick="selectRole('Atendimento ao Cliente')">
+                <div>
+                    <h3>Atendimento ao Cliente</h3>
+                    <p class="role-desc">Ponte entre o cliente e a equipe. Acompanha resultados, alinha expectativas e garante que cada parceiro tenha a melhor experiência possível.</p>
+                </div>
+            </div>
+            <div class="role" onclick="selectRole('Comercial')">
+                <div>
+                    <h3>Comercial</h3>
+                    <p class="role-desc">Prospecta novos clientes, apresenta soluções personalizadas e conduz negociações. É quem abre portas e constrói novas parcerias para a Vkron.</p>
+                </div>
+            </div>
+            <div class="role" onclick="selectRole('Administrativo')">
+                <div>
+                    <h3>Administrativo</h3>
+                    <p class="role-desc">Cuida da organização interna, processos financeiros, documentação e suporte operacional para que toda a equipe funcione com eficiência.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulário -->
+    <section class="apply" id="apply">
+        <div class="apply-inner">
+            <h2>Candidate-se</h2>
+            <p>Preencha abaixo e entraremos em contato</p>
+            <form id="trabalheConoscoForm">
+                <div class="field-row">
+                    <div class="field">
+                        <label>Nome</label>
+                        <input type="text" id="nome" required placeholder="Seu nome completo">
+                    </div>
+                    <div class="field">
+                        <label>E-mail</label>
+                        <input type="email" id="emailTrabalho" required placeholder="seu@email.com">
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div class="field">
+                        <label>WhatsApp</label>
+                        <input type="tel" id="telefone" required placeholder="(00) 00000-0000">
+                    </div>
+                    <div class="field">
+                        <label>Área</label>
+                        <select id="cargo" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option>Gestor de Trafego</option>
+                            <option>Atendimento ao Cliente</option>
+                            <option>Comercial</option>
+                            <option>Administrativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Mensagem (opcional)</label>
+                    <textarea id="mensagem" placeholder="Conte sobre você e sua experiência..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Enviar candidatura &#8594;</button>
+                <p class="apply-disclaimer">Seus dados serão usados exclusivamente para recrutamento.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; Vkron Agência de Marketing Digital. Todos os direitos reservados.</p>
+    </div>
+
+    <script>
+    // Select role
+    function selectRole(role) {
+        document.getElementById('cargo').value = role;
+        document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Form submit
+    document.getElementById('trabalheConoscoForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const nome = document.getElementById('nome').value;
+        const email = document.getElementById('emailTrabalho').value;
+        const telefone = document.getElementById('telefone').value;
+        const cargo = document.getElementById('cargo').value;
+        const mensagem = document.getElementById('mensagem').value;
+
+        if (!email.includes('@') || !email.includes('.')) {
+            alert('Por favor, insira um e-mail válido.');
+            return;
+        }
+
+        const destinatario = "vkroncomercial@gmail.com";
+        const assunto = `Candidatura - ${cargo} - ${nome}`;
+        const corpo = `Olá equipe Vkron,\n\nMeu nome é ${nome} e tenho interesse em fazer parte da equipe na área de ${cargo}.\n\nDADOS PARA CONTATO:\n• Nome: ${nome}\n• E-mail: ${email}\n• Telefone/WhatsApp: ${telefone}\n• Área de Interesse: ${cargo}\n\n${mensagem ? `MENSAGEM:\n${mensagem}\n\n` : ''}Aguardo retorno.\n\nAtenciosamente,\n${nome}`;
+
+        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(destinatario)}&su=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`, '_blank');
+
+        const btn = e.target.querySelector('.submit-btn');
+        btn.textContent = '✓ Abrindo Gmail...';
+        btn.style.background = '#3aaa34';
+        setTimeout(() => { btn.innerHTML = 'Enviar candidatura &#8594;'; btn.style.background = '#064b9c'; }, 3000);
+    });
+
+    // Máscara telefone
+    document.getElementById('telefone').addEventListener('input', function(e) {
+        let v = e.target.value.replace(/\D/g, '');
+        if (v.length > 11) v = v.slice(0, 11);
+        if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+        else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+        else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+        else if (v.length > 0) v = v.replace(/^(\d{0,2})/, '($1');
+        e.target.value = v;
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            const h = this.getAttribute('href');
+            if (h === '#') return;
+            e.preventDefault();
+            const t = document.getElementById(h.substring(1));
+            if (t) t.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+    </script>
+</body>
+</html>

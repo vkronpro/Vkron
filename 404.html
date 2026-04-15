@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página não encontrada - Vkron</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #064b9c;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Particulas flutuantes */
+        .particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.06);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+        .particle:nth-child(1) { width: 200px; height: 200px; top: 10%; left: -5%; animation-duration: 20s; }
+        .particle:nth-child(2) { width: 150px; height: 150px; top: 60%; right: -3%; animation-duration: 25s; animation-delay: -5s; }
+        .particle:nth-child(3) { width: 100px; height: 100px; top: 30%; right: 20%; animation-duration: 18s; animation-delay: -8s; }
+        .particle:nth-child(4) { width: 250px; height: 250px; bottom: -10%; left: 30%; animation-duration: 22s; animation-delay: -3s; }
+        .particle:nth-child(5) { width: 80px; height: 80px; top: 15%; right: 40%; animation-duration: 15s; animation-delay: -10s; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+            25% { transform: translateY(-30px) rotate(5deg); opacity: 1; }
+            50% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+            75% { transform: translateY(30px) rotate(-5deg); opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+        .logo { text-decoration: none; display: flex; align-items: center; }
+        .logo img { height: 45px; width: auto; }
+        .back-link { color: white; text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: color 0.3s; }
+        .back-link:hover { color: white; }
+
+        /* Main */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .error-content {
+            max-width: 600px;
+        }
+
+        /* 404 grande com glitch */
+        .error-code {
+            font-size: 12rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1;
+            letter-spacing: -8px;
+            position: relative;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(255,255,255,0.1);
+        }
+
+        .error-code::before,
+        .error-code::after {
+            content: '404';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .error-code::before {
+            color: white;
+            animation: glitch1 3s infinite;
+            clip-path: inset(0 0 60% 0);
+        }
+        .error-code::after {
+            color: rgba(255,255,255,0.5);
+            animation: glitch2 3s infinite;
+            clip-path: inset(60% 0 0 0);
+        }
+        @keyframes glitch1 {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(8px, -3px); }
+            94% { transform: translate(-5px, 2px); }
+            96% { transform: translate(3px, 1px); }
+        }
+        @keyframes glitch2 {
+            0%, 88%, 100% { transform: translate(0); }
+            90% { transform: translate(-6px, 2px); }
+            93% { transform: translate(4px, -1px); }
+            95% { transform: translate(-2px, 3px); }
+        }
+
+        /* Linha decorativa */
+        .divider {
+            width: 60px;
+            height: 4px;
+            background: white;
+            margin: 0 auto 2rem;
+            border-radius: 2px;
+        }
+
+        .error-content h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.8rem;
+        }
+
+        .error-content p {
+            color: white;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        /* Botoes */
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-home {
+            padding: 15px 40px;
+            background: white;
+            color: #064b9c;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 50px;
+            transition: all 0.4s;
+        }
+        .btn-home:hover {
+            background: rgba(255,255,255,0.85);
+            color: #064b9c;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+        }
+
+        .btn-contact {
+            padding: 15px 40px;
+            background: white;
+            color: #064b9c;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.4s;
+        }
+        .btn-contact:hover {
+            background: rgba(255,255,255,0.85);
+            color: #064b9c;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+        }
+
+        /* Footer discreto */
+        footer {
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        footer p {
+            color: white;
+            font-size: 0.8rem;
+        }
+        footer a { color: white; text-decoration: none; }
+
+        @media (max-width: 768px) {
+            header { padding: 1rem 1.5rem; }
+            .error-code { font-size: 7rem; letter-spacing: -4px; }
+            .error-content h1 { font-size: 1.2rem; }
+            .buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particulas -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <a href="home.html" class="back-link">&#8592; Voltar</a>
+        <a href="home.html" class="logo">
+            <img src="https://imagedelivery.net/E_BFh2QU2I23Jq68Dk0FXw/7b361e0b-e19a-419b-60a5-0dd6f36a7f00/public" alt="VKRON">
+        </a>
+        <span style="width: 60px;"></span>
+    </header>
+
+    <!-- Main -->
+    <main>
+        <div class="error-content">
+            <div class="error-code">404</div>
+            <div class="divider"></div>
+            <h1>Eita, essa página não existe!</h1>
+            <p>Parece que você se perdeu no caminho. Mas relaxa, a gente te leva de volta para onde os resultados acontecem.</p>
+            <div class="buttons">
+                <a href="home.html" class="btn-home">Ir para o Início</a>
+                <a href="https://wa.me/5513997300529" target="_blank" class="btn-contact">Falar no WhatsApp</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; <a href="home.html">Vkron Agência de Marketing Digital</a></p>
+    </footer>
+</body>
+</html>

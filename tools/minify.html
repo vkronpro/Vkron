@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Minificador CSS/JS - Vkron</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 2rem; }
+        h1 { color: #064b9c; margin-bottom: 1rem; }
+        .container { max-width: 900px; margin: 0 auto; }
+        textarea { width: 100%; height: 200px; margin: 0.5rem 0; padding: 1rem; border: 2px solid #ddd; border-radius: 8px; font-family: monospace; font-size: 0.85rem; resize: vertical; }
+        button { background: #064b9c; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 1rem; cursor: pointer; margin: 0.5rem 0.5rem 0.5rem 0; }
+        button:hover { background: #3aaa34; }
+        .stats { margin: 0.5rem 0; color: #666; font-size: 0.9rem; }
+        label { font-weight: 600; color: #333; display: block; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Minificador CSS/JS</h1>
+        <p>Cole o conteudo do arquivo CSS ou JS abaixo e clique em minificar.</p>
+
+        <label for="input">Codigo original:</label>
+        <textarea id="input" placeholder="Cole aqui o CSS ou JS..."></textarea>
+
+        <button onclick="minifyCSS()">Minificar CSS</button>
+        <button onclick="minifyJS()">Minificar JS</button>
+
+        <label for="output">Codigo minificado:</label>
+        <textarea id="output" placeholder="Resultado aparece aqui..." readonly></textarea>
+
+        <button onclick="copyOutput()">Copiar resultado</button>
+        <div class="stats" id="stats"></div>
+    </div>
+
+    <script>
+        function minifyCSS() {
+            const input = document.getElementById('input').value;
+            let output = input
+                .replace(/\/\*[\s\S]*?\*\//g, '')
+                .replace(/\s*([{}:;,>~+])\s*/g, '$1')
+                .replace(/;\}/g, '}')
+                .replace(/\s+/g, ' ')
+                .replace(/^\s+|\s+$/g, '')
+                .trim();
+            document.getElementById('output').value = output;
+            showStats(input, output);
+        }
+
+        function minifyJS() {
+            const input = document.getElementById('input').value;
+            let output = input
+                .replace(/\/\/.*$/gm, '')
+                .replace(/\/\*[\s\S]*?\*\//g, '')
+                .replace(/\n\s*\n/g, '\n')
+                .replace(/\s*([{}:;,=()><!+\-*/?&|])\s*/g, '$1')
+                .replace(/\s+/g, ' ')
+                .trim();
+            document.getElementById('output').value = output;
+            showStats(input, output);
+        }
+
+        function copyOutput() {
+            const output = document.getElementById('output');
+            output.select();
+            document.execCommand('copy');
+            alert('Copiado!');
+        }
+
+        function showStats(original, minified) {
+            const saved = original.length - minified.length;
+            const percent = ((saved / original.length) * 100).toFixed(1);
+            document.getElementById('stats').textContent =
+                `Original: ${original.length} chars | Minificado: ${minified.length} chars | Economia: ${saved} chars (${percent}%)`;
+        }
+    </script>
+</body>
+</html>

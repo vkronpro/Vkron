@@ -1,0 +1,16 @@
+{
+    "name": "Vkron Agência de Marketing Digital",
+    "short_name": "Vkron",
+    "description": "Agência de marketing digital especializada em Google Ads, Meta Ads e Landing Pages.",
+    "start_url": "/home.html",
+    "display": "standalone",
+    "background_color": "#064b9c",
+    "theme_color": "#064b9c",
+    "icons": [
+        {
+            "src": "favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ]
+}

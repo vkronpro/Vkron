@@ -1,0 +1,49 @@
+backend:
+  name: github
+  repo: vkronpro/Vkron
+  branch: main
+  base_url: https://decap-proxy.vercel.app
+  auth_endpoint: api/auth
+
+media_folder: "uploads"
+public_folder: "/uploads"
+
+site_url: https://vkron.com.br
+display_url: https://vkron.com.br
+logo_url: https://imagedelivery.net/E_BFh2QU2I23Jq68Dk0FXw/ab46fc2b-a630-4b05-3fcf-cfc05c6cdd00/public
+
+locale: 'pt'
+
+collections:
+  - name: "posts"
+    label: "Posts do Blog"
+    label_singular: "Post"
+    folder: "blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "html"
+    format: "frontmatter"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Descrição (SEO)", name: "description", widget: "text"}
+      - {label: "Palavras-chave", name: "keywords", widget: "string", required: false}
+      - {label: "Data de Publicação", name: "date", widget: "datetime", format: "DD/MM/YYYY"}
+      - {label: "Tempo de Leitura (min)", name: "readtime", widget: "number", default: 5, min: 1}
+      - {label: "Imagem de Capa", name: "image", widget: "image"}
+      - {label: "Texto Alternativo da Imagem", name: "image_alt", widget: "string"}
+      - {label: "Conteúdo do Artigo", name: "body", widget: "markdown"}
+      - {label: "CTA - Título", name: "cta_title", widget: "string", default: "Quer saber mais?"}
+      - {label: "CTA - Texto", name: "cta_text", widget: "text", default: "A VKRON cria estratégias personalizadas em marketing digital para o seu negócio."}
+      - {label: "CTA - Botão", name: "cta_button", widget: "string", default: "Fale com a VKRON"}
+
+  - name: "config"
+    label: "Configurações do Site"
+    files:
+      - name: "info"
+        label: "Informações Gerais"
+        file: "data/info.json"
+        fields:
+          - {label: "Nome da Empresa", name: "nome", widget: "string"}
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "WhatsApp", name: "whatsapp", widget: "string"}
+          - {label: "Endereço", name: "endereco", widget: "string"}
