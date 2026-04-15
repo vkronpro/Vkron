@@ -31,6 +31,10 @@
         .content ul { margin: 0.5rem 0 1.5rem 2rem; }
         .content li { margin-bottom: 0.4rem; color: #555; }
         .content strong { color: #333; }
+        .content .subtitle { color: #064b9c; font-weight: 600; margin: 1rem 0 0.5rem; }
+        .contact-list { list-style: none; margin-left: 0 !important; }
+        .contact-list li { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
+        .contact-list svg { flex-shrink: 0; color: #064b9c; }
         .update-date { text-align: center; color: #999; font-size: 0.85rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
         footer { background: #064b9c; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
         footer a { color: white; text-decoration: none; }
@@ -62,7 +66,7 @@
 
             <h2>2. Dados Coletados</h2>
             <p>Podemos coletar os seguintes dados:</p>
-            <p><strong>2.1 Dados fornecidos pelo titular:</strong></p>
+            <p class="subtitle">2.1 Dados fornecidos pelo titular:</p>
             <ul>
                 <li>Nome</li>
                 <li>E-mail</li>
@@ -70,14 +74,14 @@
                 <li>Empresa</li>
                 <li>Informações comerciais</li>
             </ul>
-            <p><strong>2.2 Dados operacionais (marketing):</strong></p>
+            <p class="subtitle">2.2 Dados operacionais (marketing):</p>
             <ul>
                 <li>Leads gerados</li>
                 <li>Métricas de campanhas</li>
                 <li>Dados de anúncios (Google Ads, Meta Ads, etc.)</li>
                 <li>Informações de CRM</li>
             </ul>
-            <p><strong>2.3 Dados de navegação:</strong></p>
+            <p class="subtitle">2.3 Dados de navegação:</p>
             <ul>
                 <li>Endereço IP</li>
                 <li>Dispositivo</li>
@@ -148,9 +152,15 @@
 
             <h2>10. Contato</h2>
             <p>Para dúvidas ou solicitações relacionadas a dados pessoais:</p>
-            <ul>
-                <li>📧 vkroncomercial@gmail.com</li>
-                <li>📍 Rua São Bernardo, 477 - Boqueirão. Praia Grande/SP</li>
+            <ul class="contact-list">
+                <li>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    vkroncomercial@gmail.com
+                </li>
+                <li>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Rua São Bernardo, 477 - Boqueirão. Praia Grande/SP
+                </li>
             </ul>
 
             <p class="update-date">Última atualização: Abril de 2026</p>
