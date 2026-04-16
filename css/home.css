@@ -1692,7 +1692,7 @@ footer {
 
 .footer-certificate-item {
     flex: 0 0 auto;
-    max-width: 80px;
+    max-width: 110px;
     height: auto;
     display: flex;
     align-items: center;
