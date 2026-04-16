@@ -16,10 +16,6 @@ class Carousel {
         this.autoplayInterval = null;
         this.autoplayEnabled = container.dataset.autoplay === 'true';
         this.autoplayDelay = parseInt(container.dataset.autoplayInterval) || 4000;
-        this.infinite = container.dataset.infinite === 'true';
-        this.transitionDuration = 500;
-        this.isTransitioning = false;
-        this.originalCount = this.cards.length;
 
         // Drag variables
         this.isDragging = false;
@@ -42,14 +38,7 @@ class Carousel {
         return Math.max(0, this.cards.length - this.getVisibleCards());
     }
 
-    getLogicalMax() {
-        return Math.max(0, this.originalCount - this.getVisibleCards());
-    }
-
     init() {
-        if (this.infinite) {
-            this.setupClones();
-        }
         this.createIndicators();
         this.bindEvents();
         this.update();
@@ -58,32 +47,9 @@ class Carousel {
         }
     }
 
-    setupClones() {
-        const cloneCount = this.defaultVisible;
-        for (let i = 0; i < cloneCount && i < this.originalCount; i++) {
-            const clone = this.cards[i].cloneNode(true);
-            clone.setAttribute('aria-hidden', 'true');
-            clone.classList.add('carousel-clone');
-            // Replace iframes with YouTube thumbnails so clones render instantly (no reload flash)
-            clone.querySelectorAll('iframe').forEach(iframe => {
-                const src = iframe.getAttribute('src') || '';
-                const match = src.match(/embed\/([^?&]+)/);
-                if (!match) return;
-                const videoId = match[1];
-                const thumb = document.createElement('img');
-                thumb.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-                thumb.alt = '';
-                thumb.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
-                iframe.parentNode.replaceChild(thumb, iframe);
-            });
-            this.track.appendChild(clone);
-        }
-        this.cards = Array.from(this.track.children);
-    }
-
     createIndicators() {
         this.indicatorsContainer.innerHTML = '';
-        const totalSlides = this.infinite ? this.getLogicalMax() + 1 : this.getMaxIndex() + 1;
+        const totalSlides = this.getMaxIndex() + 1;
 
         for (let i = 0; i < totalSlides; i++) {
             const indicator = document.createElement('span');
@@ -120,9 +86,8 @@ class Carousel {
 
         window.addEventListener('resize', () => {
             this.createIndicators();
-            const max = this.infinite ? this.getLogicalMax() : this.getMaxIndex();
-            if (this.currentIndex > max) {
-                this.currentIndex = 0;
+            if (this.currentIndex > this.getMaxIndex()) {
+                this.currentIndex = this.getMaxIndex();
             }
             this.update();
         });
@@ -158,9 +123,9 @@ class Carousel {
             : (e.changedTouches ? e.changedTouches[0].clientX - this.startPos : 0);
 
         // If dragged more than 50px, change slide
-        if (movedBy < -50 && (this.infinite || this.currentIndex < this.getMaxIndex())) {
+        if (movedBy < -50 && this.currentIndex < this.getMaxIndex()) {
             this.next();
-        } else if (movedBy > 50 && (this.infinite || this.currentIndex > 0)) {
+        } else if (movedBy > 50 && this.currentIndex > 0) {
             this.prev();
         } else {
             this.update();
@@ -182,88 +147,39 @@ class Carousel {
         this.track.style.transform = `translateX(${translateX}px)`;
 
         const indicators = this.indicatorsContainer.querySelectorAll('.indicator');
-        const activeIdx = this.infinite
-            ? Math.min(this.currentIndex, this.getLogicalMax())
-            : this.currentIndex;
         indicators.forEach((ind, i) => {
-            ind.classList.toggle('active', i === activeIdx);
+            ind.classList.toggle('active', i === this.currentIndex);
         });
     }
 
     prev() {
-        if (this.infinite) {
-            if (this.isTransitioning) return;
-            this.isTransitioning = true;
-
-            if (this.currentIndex === 0) {
-                // Wrap backward: jump (no transition) to clone mirror of position 0, then animate to logicalMax
-                this.track.style.transition = 'none';
-                this.currentIndex = this.originalCount;
-                this.track.style.transform = `translateX(${-this.currentIndex * this.getCardWidth()}px)`;
-                this.track.offsetHeight; // force reflow
-                requestAnimationFrame(() => {
-                    this.track.style.transition = '';
-                    this.currentIndex = this.getLogicalMax();
-                    this.update();
-                    setTimeout(() => { this.isTransitioning = false; }, this.transitionDuration);
-                });
-            } else {
-                this.currentIndex--;
-                this.update();
-                setTimeout(() => { this.isTransitioning = false; }, this.transitionDuration);
-            }
-        } else if (this.currentIndex > 0) {
+        if (this.currentIndex > 0) {
             this.currentIndex--;
             this.update();
         }
     }
 
     next() {
-        if (this.infinite) {
-            if (this.isTransitioning) return;
-            this.isTransitioning = true;
-            this.currentIndex++;
-            this.update();
-
-            if (this.currentIndex >= this.originalCount) {
-                // Reached the clone zone — snap back to real start after the transition completes
-                setTimeout(() => {
-                    this.track.style.transition = 'none';
-                    this.currentIndex = 0;
-                    this.track.style.transform = 'translateX(0px)';
-                    const indicators = this.indicatorsContainer.querySelectorAll('.indicator');
-                    indicators.forEach((ind, i) => ind.classList.toggle('active', i === 0));
-                    this.track.offsetHeight; // force reflow
-                    this.track.style.transition = '';
-                    this.isTransitioning = false;
-                }, this.transitionDuration);
-            } else {
-                setTimeout(() => { this.isTransitioning = false; }, this.transitionDuration);
-            }
-        } else if (this.currentIndex < this.getMaxIndex()) {
+        if (this.currentIndex < this.getMaxIndex()) {
             this.currentIndex++;
             this.update();
         }
     }
 
     goTo(index) {
-        const max = this.infinite ? this.getLogicalMax() : this.getMaxIndex();
-        this.currentIndex = Math.max(0, Math.min(index, max));
+        this.currentIndex = Math.max(0, Math.min(index, this.getMaxIndex()));
         this.update();
     }
 
     startAutoplay() {
         this.stopAutoplay();
         this.autoplayInterval = setInterval(() => {
-            if (this.infinite) {
-                this.next();
-            } else if (this.currentIndex < this.getMaxIndex()) {
+            if (this.currentIndex < this.getMaxIndex()) {
                 this.currentIndex++;
-                this.update();
             } else {
                 this.currentIndex = 0;
-                this.update();
             }
+            this.update();
         }, this.autoplayDelay);
     }
     
