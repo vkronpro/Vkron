@@ -64,6 +64,18 @@ class Carousel {
             const clone = this.cards[i].cloneNode(true);
             clone.setAttribute('aria-hidden', 'true');
             clone.classList.add('carousel-clone');
+            // Replace iframes with YouTube thumbnails so clones render instantly (no reload flash)
+            clone.querySelectorAll('iframe').forEach(iframe => {
+                const src = iframe.getAttribute('src') || '';
+                const match = src.match(/embed\/([^?&]+)/);
+                if (!match) return;
+                const videoId = match[1];
+                const thumb = document.createElement('img');
+                thumb.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                thumb.alt = '';
+                thumb.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+                iframe.parentNode.replaceChild(thumb, iframe);
+            });
             this.track.appendChild(clone);
         }
         this.cards = Array.from(this.track.children);
@@ -210,18 +222,11 @@ class Carousel {
         if (this.infinite) {
             if (this.isTransitioning) return;
             this.isTransitioning = true;
+            this.currentIndex++;
+            this.update();
 
-            const logicalMax = this.getLogicalMax();
-
-            if (this.currentIndex < logicalMax) {
-                // Normal single-card step between real positions
-                this.currentIndex++;
-                this.update();
-                setTimeout(() => { this.isTransitioning = false; }, this.transitionDuration);
-            } else {
-                // At the last real position — animate through clones to visual-start, then snap to 0
-                this.currentIndex = this.originalCount;
-                this.update();
+            if (this.currentIndex >= this.originalCount) {
+                // Reached the clone zone — snap back to real start after the transition completes
                 setTimeout(() => {
                     this.track.style.transition = 'none';
                     this.currentIndex = 0;
@@ -232,6 +237,8 @@ class Carousel {
                     this.track.style.transition = '';
                     this.isTransitioning = false;
                 }, this.transitionDuration);
+            } else {
+                setTimeout(() => { this.isTransitioning = false; }, this.transitionDuration);
             }
         } else if (this.currentIndex < this.getMaxIndex()) {
             this.currentIndex++;
