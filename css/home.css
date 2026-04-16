@@ -2663,41 +2663,63 @@ footer {
     color: white;
     transform: translateY(-3px);
 }
-.footer-social-icons {
-    display: flex;
-    gap: 0.6rem;
+.social-squircle-wrapper {
+    position: relative;
     margin-top: 1rem;
+    display: inline-block;
 }
-.footer-social-icons a {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
+.social-squircle-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+.social-squircle-row {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+.social-squircle {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    clip-path: url(#squircleClip);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     text-decoration: none;
-    transition: transform 0.2s, filter 0.2s;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
-.footer-social-icons a:hover {
-    transform: translateY(-3px);
-    filter: brightness(1.1);
+.social-squircle:hover {
+    transform: scale(1.1) translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
 }
-.footer-social-icons svg {
-    width: 18px;
-    height: 18px;
+.social-squircle svg {
+    width: 32px;
+    height: 32px;
 }
-.footer-social-icons a[aria-label="Instagram"] {
-    background: radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+.social-squircle--instagram {
+    background: linear-gradient(135deg, #f9ce34, #ee2a7b, #6228d7);
 }
-.footer-social-icons a[aria-label="TikTok"] {
-    background: #000;
+.social-squircle--tiktok {
+    background: linear-gradient(135deg, #1f2937, #000000);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
-.footer-social-icons a[aria-label="YouTube"] {
-    background: #FF0000;
+.social-squircle--youtube {
+    background: linear-gradient(135deg, #dc2626, #7f1d1d);
+    border: 1px solid rgba(239, 68, 68, 0.3);
 }
-.footer-social-icons a[aria-label="LinkedIn"] {
-    background: #0A66C2;
+.social-squircle--linkedin {
+    background: linear-gradient(135deg, #3b82f6, #1e40af);
+    border: 1px solid rgba(96, 165, 250, 0.3);
 }
 @media (max-width: 768px) {
     .footer-bottom {
