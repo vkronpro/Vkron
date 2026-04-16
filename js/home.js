@@ -184,14 +184,14 @@ class Carousel {
             this.isTransitioning = true;
 
             if (this.currentIndex === 0) {
-                // Jump (no transition) to clone position that mirrors the start, then animate backward
+                // Wrap backward: jump (no transition) to clone mirror of position 0, then animate to logicalMax
                 this.track.style.transition = 'none';
                 this.currentIndex = this.originalCount;
                 this.track.style.transform = `translateX(${-this.currentIndex * this.getCardWidth()}px)`;
                 this.track.offsetHeight; // force reflow
                 requestAnimationFrame(() => {
                     this.track.style.transition = '';
-                    this.currentIndex--;
+                    this.currentIndex = this.getLogicalMax();
                     this.update();
                     setTimeout(() => { this.isTransitioning = false; }, this.transitionDuration);
                 });
@@ -210,11 +210,18 @@ class Carousel {
         if (this.infinite) {
             if (this.isTransitioning) return;
             this.isTransitioning = true;
-            this.currentIndex++;
-            this.update();
 
-            if (this.currentIndex >= this.originalCount) {
-                // Landed in the clone zone — snap back to start after the transition completes
+            const logicalMax = this.getLogicalMax();
+
+            if (this.currentIndex < logicalMax) {
+                // Normal single-card step between real positions
+                this.currentIndex++;
+                this.update();
+                setTimeout(() => { this.isTransitioning = false; }, this.transitionDuration);
+            } else {
+                // At the last real position — animate through clones to visual-start, then snap to 0
+                this.currentIndex = this.originalCount;
+                this.update();
                 setTimeout(() => {
                     this.track.style.transition = 'none';
                     this.currentIndex = 0;
@@ -225,8 +232,6 @@ class Carousel {
                     this.track.style.transition = '';
                     this.isTransitioning = false;
                 }, this.transitionDuration);
-            } else {
-                setTimeout(() => { this.isTransitioning = false; }, this.transitionDuration);
             }
         } else if (this.currentIndex < this.getMaxIndex()) {
             this.currentIndex++;
