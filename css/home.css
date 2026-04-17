@@ -2393,6 +2393,9 @@ footer {
     align-items: center;
     gap: 60px;
     width: max-content;
+    will-change: transform;
+}
+.marquee-track.playing {
     animation: marqueeScroll 40s linear infinite;
 }
 .marquee-track img {

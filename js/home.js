@@ -428,14 +428,15 @@ if (backToTop) {
 // ===========================================
 document.addEventListener('DOMContentLoaded', () => {
     const track = document.querySelector('.marquee-track');
-    if (track) {
-        const items = Array.from(track.children);
-        items.forEach(item => {
-            const clone = item.cloneNode(true);
-            clone.setAttribute('aria-hidden', 'true');
-            track.appendChild(clone);
-        });
-    }
+    if (!track) return;
+    const items = Array.from(track.children);
+    items.forEach(item => {
+        const clone = item.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+    });
+    // Start the animation only after clones exist, so the track never slides into blank space
+    requestAnimationFrame(() => track.classList.add('playing'));
 });
 
 // ===========================================
