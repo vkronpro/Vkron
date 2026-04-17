@@ -322,6 +322,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// If the page was opened with a hash (e.g., ...#blog), scroll smoothly then remove the hash from the URL
+if (window.location.hash) {
+    const targetId = window.location.hash.substring(1);
+    // Clean the URL immediately so the hash never sticks
+    history.replaceState(null, '', window.location.pathname);
+    window.addEventListener('load', () => {
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+}
+
 // ===========================================
 // HAMBURGER MENU
 // ===========================================
