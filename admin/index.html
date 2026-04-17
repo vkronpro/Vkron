@@ -12,6 +12,18 @@
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
         CMS.registerPreviewStyle('/admin/preview.css');
+
+        // Hide the "Adição rápida" (Quick Add) button in the top bar
+        const hideQuickAdd = () => {
+            document.querySelectorAll('button').forEach(btn => {
+                const text = btn.textContent.trim().toLowerCase();
+                if (text.startsWith('adição rápida') || text.startsWith('quick add')) {
+                    const wrapper = btn.closest('[class*="Dropdown"]') || btn;
+                    wrapper.style.display = 'none';
+                }
+            });
+        };
+        new MutationObserver(hideQuickAdd).observe(document.body, { childList: true, subtree: true });
     </script>
 </body>
 </html>
