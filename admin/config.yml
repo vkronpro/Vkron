@@ -23,6 +23,8 @@ collections:
     slug: "{{slug}}"
     extension: "html"
     format: "frontmatter"
+    identifier_field: "title"
+    summary: "{{title}} | {{slug}}"
     fields:
       - {label: "Título", name: "title", widget: "string"}
       - {label: "Descrição (SEO)", name: "description", widget: "text"}
