@@ -24,7 +24,7 @@ collections:
     extension: "html"
     format: "frontmatter"
     identifier_field: "title"
-    summary: "{{title}} | {{slug}}"
+    summary: "{{fields.title | default('(sem título)')}} — {{filename}}"
     fields:
       - {label: "Título", name: "title", widget: "string"}
       - {label: "Descrição (SEO)", name: "description", widget: "text"}
