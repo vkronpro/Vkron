@@ -36,6 +36,24 @@ collections:
       - {label: "CTA - Texto", name: "cta_text", widget: "text", default: "A VKRON cria estratégias personalizadas em marketing digital para o seu negócio."}
       - {label: "CTA - Botão", name: "cta_button", widget: "string", default: "Fale com a VKRON"}
 
+  - name: "team"
+    label: "Equipe"
+    label_singular: "Membro"
+    files:
+      - name: "team_members"
+        label: "Membros da Equipe"
+        file: "data/team.json"
+        fields:
+          - label: "Equipe"
+            name: "members"
+            widget: "list"
+            label_singular: "Membro"
+            summary: "{{fields.name}} — {{fields.role}}"
+            fields:
+              - {label: "Nome Completo", name: "name", widget: "string"}
+              - {label: "Cargo", name: "role", widget: "string"}
+              - {label: "Foto (URL ou upload)", name: "photo", widget: "image", hint: "Cole uma URL ou envie uma imagem"}
+
   - name: "config"
     label: "Configurações do Site"
     files:

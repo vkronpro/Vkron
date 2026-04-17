@@ -191,8 +191,51 @@ class Carousel {
     }
 }
 
+// Render team carousel cards from data/team.json
+async function renderTeamFromJSON() {
+    const container = document.querySelector('[data-carousel="team"]');
+    if (!container) return;
+    const track = container.querySelector('.carousel-track');
+    if (!track) return;
+
+    try {
+        const res = await fetch('/data/team.json', { cache: 'no-cache' });
+        if (!res.ok) return;
+        const data = await res.json();
+        const members = Array.isArray(data.members) ? data.members : [];
+
+        const fragment = document.createDocumentFragment();
+        members.forEach(m => {
+            if (!m || !m.name) return;
+            const card = document.createElement('div');
+            card.className = 'team-card';
+
+            const photoWrap = document.createElement('div');
+            photoWrap.className = 'team-photo';
+            const img = document.createElement('img');
+            img.loading = 'lazy';
+            img.src = m.photo || '';
+            img.alt = m.name;
+            photoWrap.appendChild(img);
+
+            const h3 = document.createElement('h3');
+            h3.textContent = m.name;
+            const p = document.createElement('p');
+            p.textContent = m.role || '';
+
+            card.append(photoWrap, h3, p);
+            fragment.appendChild(card);
+        });
+        track.appendChild(fragment);
+    } catch (e) {
+        console.error('Falha ao carregar equipe:', e);
+    }
+}
+
 // Initialize all carousels
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await renderTeamFromJSON();
+
     const carousels = document.querySelectorAll('.carousel-container');
     carousels.forEach(container => {
         const carousel = new Carousel(container);
