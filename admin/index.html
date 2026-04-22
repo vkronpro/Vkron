@@ -47,6 +47,30 @@
     <script>
         CMS.registerPreviewStyle('/admin/preview.css');
 
+        CMS.registerPreviewTemplate('info', createClass({
+            render: function () {
+                var d = this.props.entry.getIn(['data']).toJS();
+                var rows = [
+                    ['Nome da Empresa', d.nome],
+                    ['Email', d.email],
+                    ['WhatsApp', d.whatsapp],
+                    ['Endereço', d.endereco],
+                    ['Instagram', d.instagram],
+                    ['TikTok', d.tiktok],
+                    ['YouTube', d.youtube],
+                    ['LinkedIn', d.linkedin]
+                ];
+                return h('div', {},
+                    rows.map(function (r, i) {
+                        return h('p', { key: i, style: { margin: '0.5rem 0' } },
+                            h('strong', {}, r[0] + ': '),
+                            r[1] || '—'
+                        );
+                    })
+                );
+            }
+        }));
+
         const VKRON_BLUE = '#064b9c';
         const VKRON_GREEN = '#3aaa34';
 
