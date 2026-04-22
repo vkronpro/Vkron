@@ -9,6 +9,20 @@
     <style>
         header[class*="AppHeader"] {
             background-color: #064b9c !important;
+            position: relative;
+        }
+        header[class*="AppHeader"]::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 110px;
+            height: 36px;
+            background: url('https://imagedelivery.net/E_BFh2QU2I23Jq68Dk0FXw/fcec3fb6-cf4e-495a-bd88-1a7c12a46700/public') center/contain no-repeat;
+            filter: brightness(0) invert(1);
+            pointer-events: none;
+            z-index: 1;
         }
         header[class*="AppHeader"] a,
         header[class*="AppHeader"] a *,
@@ -36,26 +50,37 @@
         const VKRON_BLUE = '#064b9c';
         const VKRON_GREEN = '#3aaa34';
 
+        const normalize = (s) => (s || '').trim().toLowerCase()
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
         const customizeUI = () => {
-            document.querySelectorAll('button, a').forEach(el => {
-                const text = el.textContent.trim().toLowerCase();
-
-                if (text.includes('adição rápida') || text.includes('quick add')) {
-                    const wrapper = el.closest('[class*="QuickAdd"]') ||
-                                    el.closest('[class*="Dropdown"]') ||
-                                    el;
-                    wrapper.style.setProperty('display', 'none', 'important');
-                    return;
+            document.querySelectorAll('button').forEach(btn => {
+                const text = normalize(btn.textContent);
+                if (text.includes('adicao') && text.includes('rapida') || text.includes('quick add')) {
+                    let target = btn;
+                    let node = btn;
+                    for (let i = 0; i < 4; i++) {
+                        if (!node.parentElement || node.parentElement === document.body) break;
+                        const parent = node.parentElement;
+                        const cls = String(parent.className || '');
+                        if (/dropdown|quickadd/i.test(cls)) {
+                            target = parent;
+                            break;
+                        }
+                        node = parent;
+                    }
+                    target.style.cssText = 'display: none !important; visibility: hidden !important;';
+                    target.hidden = true;
                 }
+            });
 
+            document.querySelectorAll('button, a').forEach(el => {
+                const text = normalize(el.textContent);
                 if (text.startsWith('novo(a)') || text.startsWith('new ')) {
                     el.style.setProperty('background-color', VKRON_BLUE, 'important');
                     el.style.setProperty('border-color', VKRON_BLUE, 'important');
                     el.style.setProperty('color', 'white', 'important');
-                    return;
-                }
-
-                if (text === 'publicar' || text === 'publish' || text.startsWith('publicar agora') || text.startsWith('publish now')) {
+                } else if (text === 'publicar' || text === 'publish' || text.startsWith('publicar agora') || text.startsWith('publish now')) {
                     el.style.setProperty('background-color', VKRON_GREEN, 'important');
                     el.style.setProperty('border-color', VKRON_GREEN, 'important');
                     el.style.setProperty('color', 'white', 'important');
@@ -63,6 +88,7 @@
             });
         };
         new MutationObserver(customizeUI).observe(document.body, { childList: true, subtree: true });
+        setInterval(customizeUI, 500);
     </script>
 </body>
 </html>
