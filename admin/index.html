@@ -18,6 +18,14 @@
             fill: white !important;
             opacity: 1 !important;
         }
+        header[class*="AppHeader"] [class*="Dropdown"] a,
+        header[class*="AppHeader"] [class*="Dropdown"] span,
+        header[class*="AppHeader"] [class*="Menu"] a,
+        header[class*="AppHeader"] [class*="Menu"] span,
+        header[class*="AppHeader"] [role="menu"] *,
+        header[class*="AppHeader"] [role="menuitem"] {
+            color: #333 !important;
+        }
     </style>
 </head>
 <body>
@@ -32,9 +40,11 @@
             document.querySelectorAll('button, a').forEach(el => {
                 const text = el.textContent.trim().toLowerCase();
 
-                if (text.startsWith('adição rápida') || text.startsWith('quick add')) {
-                    const wrapper = el.closest('[class*="Dropdown"]') || el;
-                    wrapper.style.display = 'none';
+                if (text.includes('adição rápida') || text.includes('quick add')) {
+                    const wrapper = el.closest('[class*="QuickAdd"]') ||
+                                    el.closest('[class*="Dropdown"]') ||
+                                    el;
+                    wrapper.style.setProperty('display', 'none', 'important');
                     return;
                 }
 
