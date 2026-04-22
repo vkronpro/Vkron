@@ -3,18 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vkron Admin - Gerenciar Conteúdo</title>
+    <title>Painel Vkron</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
+    <style>
+        [class*="AppHeader-"],
+        header[class*="AppHeader"] {
+            background-color: #064b9c !important;
+            background-image: none !important;
+        }
+        [class*="AppHeader-"] a,
+        [class*="AppHeader-"] button,
+        [class*="AppHeader-"] span,
+        [class*="AppHeader-"] svg {
+            color: white !important;
+            fill: white !important;
+        }
+        button[class*="PublishedToolbarButton-"],
+        button[class*="ToolbarButton-publish"],
+        [class*="DropdownButton-"][class*="success"],
+        button[class*="-success"] {
+            background-color: #3aaa34 !important;
+            border-color: #3aaa34 !important;
+        }
+        button[class*="Button-primary"],
+        button[class*="ToolbarButton-primary"],
+        a[class*="Button-primary"] {
+            background-color: #064b9c !important;
+            border-color: #064b9c !important;
+        }
+        #vkron-admin-logo {
+            height: 32px;
+            width: auto;
+            margin-right: 14px;
+            vertical-align: middle;
+            filter: brightness(0) invert(1);
+        }
+    </style>
 </head>
 <body>
-    <!-- Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
         CMS.registerPreviewStyle('/admin/preview.css');
 
-        // Hide the "Adição rápida" (Quick Add) button in the top bar
-        const hideQuickAdd = () => {
+        const VKRON_LOGO_URL = 'https://imagedelivery.net/E_BFh2QU2I23Jq68Dk0FXw/fcec3fb6-cf4e-495a-bd88-1a7c12a46700/public';
+
+        const customizeUI = () => {
             document.querySelectorAll('button').forEach(btn => {
                 const text = btn.textContent.trim().toLowerCase();
                 if (text.startsWith('adição rápida') || text.startsWith('quick add')) {
@@ -22,8 +56,20 @@
                     wrapper.style.display = 'none';
                 }
             });
+
+            if (!document.getElementById('vkron-admin-logo')) {
+                const header = document.querySelector('[class*="AppHeader-"]');
+                if (header) {
+                    const target = header.querySelector('[class*="AppHeaderContent-"]') || header;
+                    const logo = document.createElement('img');
+                    logo.id = 'vkron-admin-logo';
+                    logo.src = VKRON_LOGO_URL;
+                    logo.alt = 'Vkron';
+                    target.insertBefore(logo, target.firstChild);
+                }
+            }
         };
-        new MutationObserver(hideQuickAdd).observe(document.body, { childList: true, subtree: true });
+        new MutationObserver(customizeUI).observe(document.body, { childList: true, subtree: true });
     </script>
 </body>
 </html>
