@@ -38,6 +38,23 @@ collections:
       - {label: "CTA - Texto", name: "cta_text", widget: "text", default: "A VKRON cria estratégias personalizadas em marketing digital para o seu negócio."}
       - {label: "CTA - Botão", name: "cta_button", widget: "string", default: "Fale com a VKRON"}
 
+  - name: "testimonials"
+    label: "Depoimentos em Vídeo"
+    files:
+      - name: "testimonials_list"
+        label: "Lista de Depoimentos"
+        file: "data/testimonials.json"
+        fields:
+          - label: "Depoimentos"
+            name: "videos"
+            widget: "list"
+            label_singular: "Depoimento"
+            summary: "{{fields.name}} — {{fields.demand}}"
+            fields:
+              - {label: "Nome", name: "name", widget: "string"}
+              - {label: "Demanda", name: "demand", widget: "string"}
+              - {label: "Link do YouTube", name: "youtube", widget: "string", hint: "Cole a URL completa (ex: https://www.youtube.com/watch?v=ABC123 ou https://youtu.be/ABC123)"}
+
   - name: "team"
     label: "Equipe"
     label_singular: "Membro"

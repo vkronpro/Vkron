@@ -273,10 +273,66 @@ async function renderTeamFromJSON() {
     }
 }
 
+// Render testimonials carousel from data/testimonials.json
+async function renderTestimonialsFromJSON() {
+    const container = document.querySelector('[data-carousel="testimonials"]');
+    if (!container) return;
+    const track = container.querySelector('.carousel-track');
+    if (!track) return;
+
+    try {
+        const res = await fetch('/data/testimonials.json', { cache: 'no-cache' });
+        if (!res.ok) return;
+        const data = await res.json();
+        const videos = Array.isArray(data.videos) ? data.videos : [];
+
+        const youtubeEmbedUrl = (url) => {
+            if (!url) return '';
+            const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([a-zA-Z0-9_-]{11})/);
+            return m ? `https://www.youtube.com/embed/${m[1]}` : '';
+        };
+
+        const fragment = document.createDocumentFragment();
+        videos.forEach(v => {
+            if (!v || !v.name || !v.youtube) return;
+            const embedUrl = youtubeEmbedUrl(v.youtube);
+            if (!embedUrl) return;
+
+            const card = document.createElement('div');
+            card.className = 'testimonial-card';
+
+            const videoWrap = document.createElement('div');
+            videoWrap.className = 'video-container';
+            const iframe = document.createElement('iframe');
+            iframe.width = 560;
+            iframe.height = 315;
+            iframe.src = embedUrl;
+            iframe.title = 'YouTube video player';
+            iframe.frameBorder = '0';
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+            iframe.allowFullscreen = true;
+            videoWrap.appendChild(iframe);
+
+            const h3 = document.createElement('h3');
+            h3.textContent = v.name;
+            const p = document.createElement('p');
+            p.textContent = v.demand || '';
+
+            card.append(videoWrap, h3, p);
+            fragment.appendChild(card);
+        });
+        track.appendChild(fragment);
+    } catch (e) {
+        console.error('Falha ao carregar depoimentos:', e);
+    }
+}
+
 // Initialize all carousels
 document.addEventListener('DOMContentLoaded', async () => {
     loadSiteInfo();
     await renderTeamFromJSON();
+    await renderTestimonialsFromJSON();
 
     const carousels = document.querySelectorAll('.carousel-container');
     carousels.forEach(container => {
