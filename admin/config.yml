@@ -65,5 +65,9 @@ collections:
         fields:
           - {label: "Nome da Empresa", name: "nome", widget: "string"}
           - {label: "Email", name: "email", widget: "string"}
-          - {label: "WhatsApp", name: "whatsapp", widget: "string"}
+          - {label: "WhatsApp", name: "whatsapp", widget: "string", hint: "Formato: (13) 99730-0529"}
           - {label: "Endereço", name: "endereco", widget: "string"}
+          - {label: "Instagram (URL)", name: "instagram", widget: "string", required: false, hint: "Ex: https://www.instagram.com/vkronoficial/"}
+          - {label: "TikTok (URL)", name: "tiktok", widget: "string", required: false, hint: "Ex: https://www.tiktok.com/@vkronoficial"}
+          - {label: "YouTube (URL)", name: "youtube", widget: "string", required: false}
+          - {label: "LinkedIn (URL)", name: "linkedin", widget: "string", required: false}

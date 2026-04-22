@@ -191,6 +191,47 @@ class Carousel {
     }
 }
 
+// Hydrate site info (contact + social) from data/info.json
+async function loadSiteInfo() {
+    try {
+        const res = await fetch('/data/info.json', { cache: 'no-cache' });
+        if (!res.ok) return;
+        const info = await res.json();
+
+        const waDigits = (s) => {
+            const d = (s || '').replace(/\D/g, '');
+            return d.startsWith('55') ? d : '55' + d;
+        };
+        const waLink = info.whatsapp ? `https://wa.me/${waDigits(info.whatsapp)}` : null;
+
+        const igHandle = (url) => {
+            const m = (url || '').match(/instagram\.com\/@?([^/?]+)/);
+            return m ? '@' + m[1] : '';
+        };
+
+        document.querySelectorAll('[data-info]').forEach(el => {
+            const key = el.dataset.info;
+            if (key === 'instagram_handle' && info.instagram) {
+                el.textContent = igHandle(info.instagram);
+            } else if (info[key]) {
+                el.textContent = info[key];
+            }
+        });
+
+        document.querySelectorAll('[data-info-href]').forEach(el => {
+            const key = el.dataset.infoHref;
+            if (key === 'whatsapp' && waLink) {
+                const msg = el.dataset.infoMsg;
+                el.href = msg ? `${waLink}?text=${encodeURIComponent(msg)}` : waLink;
+            } else if (key === 'email' && info.email) {
+                el.href = `mailto:${info.email}`;
+            } else if (info[key]) {
+                el.href = info[key];
+            }
+        });
+    } catch (e) {}
+}
+
 // Render team carousel cards from data/team.json
 async function renderTeamFromJSON() {
     const container = document.querySelector('[data-carousel="team"]');
@@ -234,6 +275,7 @@ async function renderTeamFromJSON() {
 
 // Initialize all carousels
 document.addEventListener('DOMContentLoaded', async () => {
+    loadSiteInfo();
     await renderTeamFromJSON();
 
     const carousels = document.querySelectorAll('.carousel-container');
