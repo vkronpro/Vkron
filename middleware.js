@@ -60,15 +60,11 @@ const BLOCKED_HTML = `<!doctype html>
 
 export default function middleware(request) {
   const host = request.headers.get('host') || '';
-  const cookieHeader = request.headers.get('cookie') || '';
-  const hasAccessHeader = Boolean(
-    request.headers.get('cf-access-jwt-assertion') ||
-    request.headers.get('cf-access-authenticated-user-email')
-  );
-  const hasAccessCookie = /(?:^|;\s*)CF_Authorization=/.test(cookieHeader);
   const isLocal = host.startsWith('localhost') || host.startsWith('127.0.0.1');
 
-  if ((TRUSTED_HOSTS.has(host) && (hasAccessHeader || hasAccessCookie)) || isLocal) {
+  // Cloudflare Access is the source of truth for auth on the official hosts.
+  // The origin middleware only blocks unknown hosts and keeps admin responses non-cacheable.
+  if (TRUSTED_HOSTS.has(host) || isLocal) {
     return next({
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate',
