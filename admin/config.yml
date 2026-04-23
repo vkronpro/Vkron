@@ -2,7 +2,7 @@ backend:
   name: github
   repo: vkronpro/Vkron
   branch: main
-  base_url: https://vkron.vercel.app
+  base_url: https://vkron.com.br
   auth_endpoint: api/auth
 
 media_folder: "uploads"

@@ -2,6 +2,31 @@
     "rewrites": [
         { "source": "/", "destination": "/home" }
     ],
+    "headers": [
+        {
+            "source": "/admin",
+            "headers": [
+                { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" },
+                { "key": "Pragma", "value": "no-cache" },
+                { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+            ]
+        },
+        {
+            "source": "/admin/:path*",
+            "headers": [
+                { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" },
+                { "key": "Pragma", "value": "no-cache" },
+                { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+            ]
+        },
+        {
+            "source": "/api/:path*",
+            "headers": [
+                { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" },
+                { "key": "Pragma", "value": "no-cache" }
+            ]
+        }
+    ],
     "cleanUrls": true,
     "trailingSlash": false
 }
