@@ -191,6 +191,132 @@ class Carousel {
     }
 }
 
+// Hydrate hero section from data/hero.json
+async function loadHero() {
+    try {
+        const res = await fetch('/data/hero.json', { cache: 'no-cache' });
+        if (!res.ok) return;
+        const data = await res.json();
+        document.querySelectorAll('[data-hero]').forEach(el => {
+            const key = el.dataset.hero;
+            if (data[key]) el.textContent = data[key];
+        });
+    } catch (e) {}
+}
+
+// Hydrate about section from data/about.json
+async function loadAbout() {
+    try {
+        const res = await fetch('/data/about.json', { cache: 'no-cache' });
+        if (!res.ok) return;
+        const data = await res.json();
+        document.querySelectorAll('[data-about]').forEach(el => {
+            const key = el.dataset.about;
+            if (data[key]) el.textContent = data[key];
+        });
+    } catch (e) {}
+}
+
+// Render partners marquee from data/partners.json
+async function renderPartnersFromJSON() {
+    const track = document.querySelector('.marquee-track');
+    if (!track) return;
+    try {
+        const res = await fetch('/data/partners.json', { cache: 'no-cache' });
+        if (!res.ok) return;
+        const data = await res.json();
+        const partners = Array.isArray(data.partners) ? data.partners : [];
+        const fragment = document.createDocumentFragment();
+        partners.forEach((p, i) => {
+            if (!p || !p.image) return;
+            const img = document.createElement('img');
+            img.loading = 'lazy';
+            img.src = p.image;
+            img.alt = p.alt || `Parceiro ${i + 1}`;
+            fragment.appendChild(img);
+        });
+        track.appendChild(fragment);
+        const items = Array.from(track.children);
+        items.forEach(item => {
+            const clone = item.cloneNode(true);
+            clone.setAttribute('aria-hidden', 'true');
+            track.appendChild(clone);
+        });
+        requestAnimationFrame(() => track.classList.add('playing'));
+    } catch (e) {
+        console.error('Falha ao carregar parceiros:', e);
+    }
+}
+
+// Render Google reviews carousel from data/reviews.json
+async function renderReviewsFromJSON() {
+    const container = document.querySelector('[data-carousel="reviews"]');
+    if (!container) return;
+    const track = container.querySelector('.carousel-track');
+    if (!track) return;
+    try {
+        const res = await fetch('/data/reviews.json', { cache: 'no-cache' });
+        if (!res.ok) return;
+        const data = await res.json();
+        const reviews = Array.isArray(data.reviews) ? data.reviews : [];
+        const initials = (name) => (name || '').trim().split(/\s+/).map(p => p[0] || '').slice(0, 2).join('').toUpperCase();
+        const fragment = document.createDocumentFragment();
+        reviews.forEach(r => {
+            if (!r || !r.name || !r.text) return;
+            const card = document.createElement('div');
+            card.className = 'review-card';
+
+            const header = document.createElement('div');
+            header.className = 'review-header';
+            const info = document.createElement('div');
+            info.className = 'reviewer-info';
+            const avatar = document.createElement('div');
+            avatar.className = 'reviewer-avatar';
+            avatar.textContent = initials(r.name);
+            const meta = document.createElement('div');
+            const h4 = document.createElement('h4');
+            h4.textContent = r.name;
+            const stars = document.createElement('div');
+            stars.className = 'review-stars';
+            for (let i = 0; i < 5; i++) {
+                const s = document.createElement('span');
+                s.className = 'material-icons';
+                s.textContent = 'star';
+                stars.appendChild(s);
+            }
+            meta.append(h4, stars);
+            info.append(avatar, meta);
+            header.appendChild(info);
+            if (r.date) {
+                const date = document.createElement('div');
+                date.className = 'review-date';
+                date.textContent = r.date;
+                header.appendChild(date);
+            }
+
+            const text = document.createElement('p');
+            text.className = 'review-text';
+            text.textContent = `"${r.text}"`;
+
+            const footer = document.createElement('div');
+            footer.className = 'review-footer';
+            const gimg = document.createElement('img');
+            gimg.src = 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg';
+            gimg.alt = 'Google';
+            gimg.width = 16;
+            const span = document.createElement('span');
+            span.textContent = 'Avaliação verificada do Google';
+            footer.append(gimg, span);
+
+            card.append(header, text, footer);
+            fragment.appendChild(card);
+        });
+        track.appendChild(fragment);
+    } catch (e) {
+        console.error('Falha ao carregar avaliações:', e);
+    }
+}
+
 // Hydrate site info (contact + social) from data/info.json
 async function loadSiteInfo() {
     try {
@@ -232,6 +358,79 @@ async function loadSiteInfo() {
     } catch (e) {}
 }
 
+// Render CEOs from data/ceos.json
+async function renderCEOsFromJSON() {
+    const grid = document.querySelector('.ceos-grid');
+    if (!grid) return;
+    try {
+        const res = await fetch('/data/ceos.json', { cache: 'no-cache' });
+        if (!res.ok) return;
+        const data = await res.json();
+        const ceos = Array.isArray(data.ceos) ? data.ceos : [];
+        const fragment = document.createDocumentFragment();
+        ceos.forEach(c => {
+            if (!c || !c.name) return;
+            const card = document.createElement('div');
+            card.className = 'team-card';
+            const photoWrap = document.createElement('div');
+            photoWrap.className = 'team-photo';
+            const img = document.createElement('img');
+            img.loading = 'lazy';
+            img.src = c.photo || '';
+            img.alt = c.name;
+            photoWrap.appendChild(img);
+            const h3 = document.createElement('h3');
+            h3.textContent = c.name;
+            const p = document.createElement('p');
+            p.textContent = c.role || '';
+            card.append(photoWrap, h3, p);
+            fragment.appendChild(card);
+        });
+        grid.appendChild(fragment);
+    } catch (e) {
+        console.error('Falha ao carregar CEOs:', e);
+    }
+}
+
+// Render results from data/results.json
+async function renderResultsFromJSON() {
+    const grid = document.querySelector('.resultados-grid');
+    if (!grid) return;
+    try {
+        const res = await fetch('/data/results.json', { cache: 'no-cache' });
+        if (!res.ok) return;
+        const data = await res.json();
+        const results = Array.isArray(data.results) ? data.results : [];
+        const defaultIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        const fragment = document.createDocumentFragment();
+        results.forEach(r => {
+            if (!r || !r.text) return;
+            const card = document.createElement('div');
+            card.className = 'resultado-card';
+            const iconWrap = document.createElement('div');
+            iconWrap.className = 'resultado-icon';
+            if (r.image) {
+                const img = document.createElement('img');
+                img.loading = 'lazy';
+                img.src = r.image;
+                img.alt = '';
+                img.style.cssText = 'width: 60px; height: auto;';
+                iconWrap.appendChild(img);
+            } else {
+                iconWrap.innerHTML = defaultIcon;
+            }
+            const text = document.createElement('div');
+            text.className = 'resultado-text';
+            text.textContent = r.text;
+            card.append(iconWrap, text);
+            fragment.appendChild(card);
+        });
+        grid.appendChild(fragment);
+    } catch (e) {
+        console.error('Falha ao carregar resultados:', e);
+    }
+}
+
 // Render team carousel cards from data/team.json
 async function renderTeamFromJSON() {
     const container = document.querySelector('[data-carousel="team"]');
@@ -243,7 +442,8 @@ async function renderTeamFromJSON() {
         const res = await fetch('/data/team.json', { cache: 'no-cache' });
         if (!res.ok) return;
         const data = await res.json();
-        const members = Array.isArray(data.members) ? data.members : [];
+        const members = Array.isArray(data.members) ? data.members.slice() : [];
+        members.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'pt-BR'));
 
         const fragment = document.createDocumentFragment();
         members.forEach(m => {
@@ -331,8 +531,14 @@ async function renderTestimonialsFromJSON() {
 // Initialize all carousels
 document.addEventListener('DOMContentLoaded', async () => {
     loadSiteInfo();
+    loadHero();
+    loadAbout();
+    renderCEOsFromJSON();
+    renderResultsFromJSON();
     await renderTeamFromJSON();
     await renderTestimonialsFromJSON();
+    await renderReviewsFromJSON();
+    await renderPartnersFromJSON();
 
     const carousels = document.querySelectorAll('.carousel-container');
     carousels.forEach(container => {
@@ -521,21 +727,6 @@ if (backToTop) {
     });
 }
 
-// ===========================================
-// MARQUEE AUTO-CLONE
-// ===========================================
-document.addEventListener('DOMContentLoaded', () => {
-    const track = document.querySelector('.marquee-track');
-    if (!track) return;
-    const items = Array.from(track.children);
-    items.forEach(item => {
-        const clone = item.cloneNode(true);
-        clone.setAttribute('aria-hidden', 'true');
-        track.appendChild(clone);
-    });
-    // Start the animation only after clones exist, so the track never slides into blank space
-    requestAnimationFrame(() => track.classList.add('playing'));
-});
 
 // ===========================================
 // BANNER LGPD

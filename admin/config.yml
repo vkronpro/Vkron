@@ -55,6 +55,39 @@ collections:
               - {label: "Demanda", name: "demand", widget: "string"}
               - {label: "Link do YouTube", name: "youtube", widget: "string", hint: "Cole a URL completa (ex: https://www.youtube.com/watch?v=ABC123 ou https://youtu.be/ABC123)"}
 
+  - name: "ceos"
+    label: "CEOs (Fundadores)"
+    files:
+      - name: "ceos_list"
+        label: "Lista de CEOs"
+        file: "data/ceos.json"
+        fields:
+          - label: "CEOs"
+            name: "ceos"
+            widget: "list"
+            label_singular: "CEO"
+            summary: "{{fields.name}} — {{fields.role}}"
+            fields:
+              - {label: "Nome", name: "name", widget: "string"}
+              - {label: "Cargo", name: "role", widget: "string", default: "CEO / Co-fundador"}
+              - {label: "Foto", name: "photo", widget: "image", hint: "Cole uma URL ou envie uma imagem"}
+
+  - name: "results"
+    label: "Resultados (Números)"
+    files:
+      - name: "results_list"
+        label: "Lista de Resultados"
+        file: "data/results.json"
+        fields:
+          - label: "Resultados"
+            name: "results"
+            widget: "list"
+            label_singular: "Resultado"
+            summary: "{{fields.text}}"
+            fields:
+              - {label: "Texto", name: "text", widget: "string", hint: "Ex: +5 mil clientes atendidos"}
+              - {label: "Ícone (opcional)", name: "image", widget: "image", required: false, hint: "Logo ou ícone. Se vazio, usa um ícone padrão"}
+
   - name: "team"
     label: "Equipe"
     label_singular: "Membro"
@@ -72,6 +105,61 @@ collections:
               - {label: "Nome Completo", name: "name", widget: "string"}
               - {label: "Cargo", name: "role", widget: "string"}
               - {label: "Foto (URL ou upload)", name: "photo", widget: "image", hint: "Cole uma URL ou envie uma imagem"}
+
+  - name: "hero"
+    label: "Texto do Hero (Capa)"
+    files:
+      - name: "hero_text"
+        label: "Hero da Home"
+        file: "data/hero.json"
+        fields:
+          - {label: "Título Principal", name: "title", widget: "string"}
+          - {label: "Subtítulo", name: "subtitle", widget: "text"}
+
+  - name: "about"
+    label: "História / Sobre Nós"
+    files:
+      - name: "about_text"
+        label: "Texto da Seção"
+        file: "data/about.json"
+        fields:
+          - {label: "Título", name: "title", widget: "string"}
+          - {label: "Parágrafo 1", name: "p1", widget: "text"}
+          - {label: "Parágrafo 2", name: "p2", widget: "text"}
+          - {label: "Parágrafo 3", name: "p3", widget: "text"}
+
+  - name: "partners"
+    label: "Parceiros (Logos)"
+    files:
+      - name: "partners_list"
+        label: "Lista de Parceiros"
+        file: "data/partners.json"
+        fields:
+          - label: "Parceiros"
+            name: "partners"
+            widget: "list"
+            label_singular: "Parceiro"
+            summary: "{{fields.alt}}"
+            fields:
+              - {label: "Logo", name: "image", widget: "image", hint: "Cole uma URL ou envie uma imagem"}
+              - {label: "Nome (alt)", name: "alt", widget: "string", hint: "Texto alternativo do logo"}
+
+  - name: "reviews"
+    label: "Avaliações Google"
+    files:
+      - name: "reviews_list"
+        label: "Lista de Avaliações"
+        file: "data/reviews.json"
+        fields:
+          - label: "Avaliações"
+            name: "reviews"
+            widget: "list"
+            label_singular: "Avaliação"
+            summary: "{{fields.name}}"
+            fields:
+              - {label: "Nome do Cliente", name: "name", widget: "string"}
+              - {label: "Texto da Avaliação", name: "text", widget: "text"}
+              - {label: "Data (opcional)", name: "date", widget: "string", required: false, hint: "Ex: há 3 semanas"}
 
   - name: "config"
     label: "Configurações do Site"
