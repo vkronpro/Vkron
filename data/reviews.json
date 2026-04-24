@@ -69,6 +69,61 @@
             "name": "João Tiago",
             "text": "A Gerente Fernanda que me atendeu de forma sensacional, muito inteligente, técnica e profissional. Apenas elogios.",
             "date": ""
+        },
+        {
+            "name": "Everson Souza",
+            "text": "Empresa entregou o prometido e ajudou meu escritório aumentar o faturamento. A funcionária Yasmin em ajuda muito nas minhas dúvidas e cuida muito bem das minhas campanhas!",
+            "date": "um ano atrás"
+        },
+        {
+            "name": "Patricia Reche",
+            "text": "Só elogios!! Empresa com colaboradores muito competentes. Estou extremamente satisfeita com trabalho desenvolvido.",
+            "date": "2 anos atrás"
+        },
+        {
+            "name": "Cristina Bastos",
+            "text": "Muito boa!!! Excelente trabalho de assessoria de marketing digital dessa empresa em auxilio aos profissionais que a utilizam.",
+            "date": "um ano atrás"
+        },
+        {
+            "name": "Alexandre Vilarinho Soares",
+            "text": "Muito bom atendimento!! Estou com campanhas iniciadas a menos de 1 semana!! E já colhendo bons frutos!!",
+            "date": "um ano atrás"
+        },
+        {
+            "name": "Diógenes Ribas",
+            "text": "São profissionais de extrema competência! Recomendo.",
+            "date": "10 meses atrás"
+        },
+        {
+            "name": "Vinicius Mattos Santana",
+            "text": "Atendem muito bem! Gratidão! Empresa séria e com diversos especialistas!",
+            "date": "um ano atrás"
+        },
+        {
+            "name": "Alba Kerlly",
+            "text": "A equipe é muito prestativa e tem se empenhado diariamente para desenvolver um trabalho de qualidade.",
+            "date": "um ano atrás"
+        },
+        {
+            "name": "Michel Gomes Vinagre",
+            "text": "Uma empresa extremamente competente, com um atendimento de excelência, super indico.",
+            "date": "2 anos atrás"
+        },
+        {
+            "name": "Daniel Silveira",
+            "text": "Muito satisfeito com o resultado. 3 a 4 contratos fechados mês.",
+            "date": "2 anos atrás"
+        },
+        {
+            "name": "Jean Tavares",
+            "text": "Excelente empresa com excelentes prestadores de serviço!",
+            "date": "2 anos atrás"
+        },
+        {
+            "name": "Lucas Salamoni",
+            "text": "Sem eles, não teria 50% do meu faturamento.",
+            "date": "2 anos atrás"
         }
     ]
 }
