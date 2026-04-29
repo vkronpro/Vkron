@@ -2,7 +2,8 @@
     "results": [
         {
             "text": "+5 mil clientes atendidos",
-            "image": ""
+            "image": "",
+            "icon": "people"
         },
         {
             "text": "+R$15 milhões investidos no Google Ads",
@@ -14,7 +15,8 @@
         },
         {
             "text": "+2 milhões de Contatos entregues para os clientes",
-            "image": ""
+            "image": "",
+            "icon": "contract"
         }
     ]
 }
